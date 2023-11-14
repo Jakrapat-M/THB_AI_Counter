@@ -76,18 +76,8 @@ def get_image():
     total_obj = gTTS(text=total_value_text, lang='th', slow=False)
     total_obj.save("voice/total.mp3")
     
+    # os.system("voice/total.mp3")
     os.system("afplay voice/total.mp3")
-    
-    print(result)
-
-    # # Process the result as needed
-    # # For example, you can extract object labels and their coordinates
-    # labels = result.names
-    # coordinates = result.xyxy[0].cpu().numpy().tolist()
-
-    
-    # Do something with the labels and coordinates (e.g., create a response)
-    # response_data = {"labels": labels, "coordinates": coordinates}
 
     return ''
 
