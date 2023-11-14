@@ -1,1 +1,5 @@
 .DS_Store
+Backend/img/image.jpg
+Backend/runs/detect/predict/image.jpg
+Backend/runs/detect/predict/labels/image.txt
+Backend/voice/total.mp3
