@@ -1,0 +1,46 @@
+.Cloud {
+    width: 50%;
+}
+.Description {
+    position: absolute;
+    z-index: 3;
+    width: 70%;
+    max-width: 40%;
+    font-size: 150%;
+    text-align: left;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+.Description {
+        font-size: 150%;
+    z-index: 3;
+    width: 70%;
+    max-width: 40%;
+    font-size: 150%;
+    text-align: left;
+    animation: fadeIn ease 1s;
+}
+
+@media (max-width: 1200px) {
+    .Cloud {
+        width: 100%;
+        object-fit: cover;
+        min-height: 400px;
+    }
+    
+}
+
+@media (max-width: 1200px) {
+    .Description{
+        width: 80%;
+        max-width: none;
+    font-size: 150%;
+    }
+}

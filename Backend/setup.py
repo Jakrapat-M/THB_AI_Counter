@@ -3,7 +3,7 @@ import subprocess
 def install_requirements():
     try:
         # Change to pip if need
-        subprocess.run(['pip3', 'install', '-r', 'requirements.txt'], check=True)
+        subprocess.run(['pip', 'install', '-r', 'requirements.txt'], check=True)
         print("All packages from requirements.txt have been successfully installed.")
     except subprocess.CalledProcessError:
         print("Error installing packages from requirements.txt.")

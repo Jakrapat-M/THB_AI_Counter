@@ -1,0 +1,113 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #98fb98;
+}
+
+.App {
+  min-height: 100vh;
+  position: relative;
+}
+
+.footer {
+  font-size: 120%;
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  height: 10%;
+  width: 100%;
+  transform: translateY(100px);
+  animation: slide 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+@keyframes slide {
+  0% {
+    transform: translateY(100px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.webcamWindow {
+  text-align: center;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.5);
+  align-content: center;
+  border-radius: 20;
+  position: relative;
+}
+
+.captureWindow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  position: absolute;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+@media (max-width: 600px) {
+
+  /* Styles for screens with a maximum width of 600px (typical for phones) */
+  .webcam {
+    padding: 5px;
+    /* Add some padding to the container for better display on smaller screens */
+  }
+}
+
+/* CSS */
+.button-52 {
+  font-size: 20px;
+  /* Increase the font size */
+  font-weight: 200;
+  color: #5271ff;
+  text-shadow: #fab6ab 2px 1px 1px;
+  letter-spacing: 1px;
+  padding: 20px 30px 20px;
+  /* Increase the padding */
+  outline: 0;
+  border: 3px solid #fab6ab;
+  border-radius: 20px;
+  cursor: pointer;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-52:after {
+  content: "";
+  background-color: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #5271ff;
+  width: 100%;
+  z-index: -1;
+  position: absolute;
+  height: 100%;
+  top: 7px;
+  left: 7px;
+  transition: 0.2s;
+}
+
+.button-52:hover:after {
+  top: 0px;
+  left: 0px;
+}
+
+@media (max-width: 600px) {
+  .button-52 {
+    padding: 30px 50px 30px;
+    /* Increase the padding */
+    font-size: 24px;
+    /* Increase the font size */
+  }
+}

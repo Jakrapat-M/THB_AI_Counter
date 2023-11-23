@@ -1,0 +1,67 @@
+.coinAnimate {
+    animation: coinAnimate 3s ease-in-out; /* Increase the duration to 2 seconds */
+    animation-fill-mode: forwards;
+}
+
+@keyframes coinAnimate {
+    from {
+        transform: translateY(0px);
+    }
+    25% {
+        transform: translateY(-150px);
+    }
+    50% {
+        transform: translateY(-100px);
+    }
+    70% {
+        transform: translateY(-100px);
+    }
+    80% {
+        transform: translateY(-150px);
+    }
+    90% {
+        transform: translateY(-100px);
+    }
+    to {
+        transform: translateY(-100px);
+    }
+}
+
+
+.textAnimate1 {
+    animation: textAnimate1 1s ease-in-out;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes textAnimate1 {
+    from {
+        transform: translateY(0px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(45px);
+        opacity: 1;
+    }
+}
+
+
+.textAnimateSub {
+    animation: textAnimateSub 1s ease-in-out 2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes textAnimateSub {
+    from {
+        transform: translateY(0px);
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.2;
+    }
+    to{
+        transform: translateY(30px);
+        opacity: 1;
+    }
+}
