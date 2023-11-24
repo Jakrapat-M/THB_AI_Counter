@@ -1,15 +1,32 @@
-import React, { useRef, useCallback, useState } from "react";
-import Webcam from "react-webcam";
-import { Button, Container, Typography } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import './index.css';
+import { Container, IconButton } from "@mui/material";
+import WebcamCapture from "./components/WebcamCapture";
+import CapturedImage from "./components/CapturedImage";
+import Loading from "./components/loading";
+import Footer from "./components/footer";
+import Description from "./components/description";
+import luckyCat from "../src/assets/luckyCat.png";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { blue } from "@mui/material/colors";
 
 const CameraApp = () => {
-  const webcamRef = useRef(null);
   const [capturedImage, setCapturedImage] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [continueApp, setContinueApp] = useState(false); // Add continueApp state
 
-  const capture = useCallback(async () => {
-    const imageSrc = webcamRef.current.getScreenshot();
+  // Loading Screen Timer logic
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 4500); // Change this to control the duration of the loading screen
+
+    return () => clearTimeout(timer); // Clean up the timer
+  }, []);
+
+  const handleCapture = async (imageSrc) => {
     setCapturedImage(imageSrc);
-
+    // Add your image processing logic here
     // Save the captured image to a file
     const blob = await fetch(imageSrc).then((res) => res.blob());
     const imageFile = new File([blob], "captured_image.jpg", {
@@ -18,7 +35,12 @@ const CameraApp = () => {
 
     // Pass the captured image file to the YOLO detection function
     performDetection(imageFile);
-  }, []);
+
+    // Set imageSrc to null after capturing the image
+    setTimeout(() => {
+      setCapturedImage(null);
+    }, 5000); // Change the duration as needed
+  };
 
   const performDetection = async (imageFile) => {
     // Create a FormData object to send the file as a multipart/form-data
@@ -36,6 +58,7 @@ const CameraApp = () => {
         // Handle the response from the server (e.g., display results)
         const result = await response.json();
         console.log("Detection Result:", result);
+        setContinueApp(true); // Set continueApp to true after successful detection
       } else {
         // Handle the error response
         console.error("Error performing detection:", response.statusText);
@@ -45,37 +68,50 @@ const CameraApp = () => {
     }
   };
 
-  return (
-    <Container maxWidth="sm" style={{ textAlign: "center", marginTop: "50px" }}>
-      <Typography variant="h4" gutterBottom>
-        MUI Camera App
-      </Typography>
-      <Webcam
-        audio={false}
-        height={400}
-        ref={webcamRef}
-        screenshotFormat="image/jpeg"
-        width={600}
-        style={{ borderRadius: "8px" }}
-      />
-      <div style={{ marginTop: "20px" }}>
-        <Button variant="contained" color="primary" onClick={capture}>
-          Capture
-        </Button>
-      </div>
-      {capturedImage && (
-        <div style={{ marginTop: "20px" }}>
-          <Typography variant="h6" gutterBottom>
-            Captured Image
-          </Typography>
-          <img
-            src={capturedImage}
-            alt="captured"
-            style={{ borderRadius: "8px" }}
-          />
+  //Load screen
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (continueApp) { // Render the app if continueApp is true
+    return (
+      <div>
+        <IconButton onClick={() => {
+          setContinueApp(false);
+          setCapturedImage(null);
+        }} style={{ top: "20px", left: "20px", zIndex: 2, position: "absolute" }}>
+          <div style={{
+            backgroundColor: "white",
+            borderRadius: "50%",
+            padding: "10px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}>
+            <ArrowBackIcon style={{ color: "black" }} />
+          </div>
+        </IconButton>
+        <div>
+          <div className="captureWindow">
+            <CapturedImage imageSrc={capturedImage} />
+          </div>
+          <div className="webcamWindow" >
+            <WebcamCapture onCapture={handleCapture} />
+          </div>
         </div>
-      )}
-    </Container>
+      </div>
+    );
+  }
+
+  return (
+    <div className="App">
+      <Description />
+      <Container style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: "10px", width: "100%" }}>
+        <img src={luckyCat} width={"50%"} style={{ maxWidth: "150px" }} alt="Lucky Cat" />
+        <button className="button-52" style={{ marginTop: "10px" }} onClick={() => setContinueApp(true)}>Try It Out!!</button>
+      </Container>
+      <Footer />
+    </div>
   );
 };
 
