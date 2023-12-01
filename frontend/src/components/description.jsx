@@ -44,6 +44,7 @@ const Description = () => {
         but calculates it too! Effortlessly identify with a snap!
       </span>
     </Box>
+  
   );
 };
 

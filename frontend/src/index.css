@@ -1,14 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  background-color: #98fb98;
+  /* box-sizing: border-box; */
+  background-color: rgb(25, 24, 31);
 }
 
-.App {
+/* .App {
   min-height: 100vh;
   position: relative;
-}
+} */
 
 .footer {
   font-size: 120%;

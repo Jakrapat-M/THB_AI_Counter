@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import './index.css';
-import { Container, IconButton } from "@mui/material";
+import {IconButton, Stack } from "@mui/material";
 import WebcamCapture from "./components/WebcamCapture";
 import CapturedImage from "./components/CapturedImage";
-import Loading from "./components/loading";
-import Footer from "./components/footer";
-import Description from "./components/description";
-import luckyCat from "../src/assets/luckyCat.png";
+// import Loading from "./components/loading";
+// import Footer from "./components/footer";
+// import Description from "./components/description";
+// import luckyCat from "../src/assets/luckyCat.png";
+import baht from "../src/assets/baht.png";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { blue } from "@mui/material/colors";
+// import { blue } from "@mui/material/colors";
+// import { Height } from "@mui/icons-material";
 
 const CameraApp = () => {
   const [capturedImage, setCapturedImage] = useState(null);
@@ -49,7 +51,7 @@ const CameraApp = () => {
 
     try {
       // Make a POST request to the Flask server
-      const response = await fetch("http://127.0.0.1:5000/get_image", {
+      const response = await fetch("http://localhost:5000/get_image", {
         method: "POST",
         body: formData,
       });
@@ -70,7 +72,7 @@ const CameraApp = () => {
 
   //Load screen
   if (isLoading) {
-    return <Loading />;
+    // return <Loading />;
   }
 
   if (continueApp) { // Render the app if continueApp is true
@@ -104,14 +106,29 @@ const CameraApp = () => {
   }
 
   return (
-    <div className="App">
-      <Description />
-      <Container style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: "10px", width: "100%" }}>
-        <img src={luckyCat} width={"50%"} style={{ maxWidth: "150px" }} alt="Lucky Cat" />
-        <button className="button-52" style={{ marginTop: "10px" }} onClick={() => setContinueApp(true)}>Try It Out!!</button>
-      </Container>
-      <Footer />
+
+    <div className="container flex justify-center h-screen text-white">
+      <div className="flex flex-col justify-center align-middle">
+      
+      <div className="d-flex justify-center align-middle">
+        <Stack spacing={2}>
+          <img src={baht} alt="logo" className="w-40 h-40"/>
+          <h3 className="text-lg font-semibold">THBCurrencyCouter</h3>
+          <button className="text-lg px-5 py-2 rounded-full transition ease-in-out delay-150 bg-indigo-500  hover:-translate-y-1 hover:scale-110 hover:bg-blue-500 duration-300" onClick={() => setContinueApp(true)}>SNAP</button>
+      </Stack>
+      </div>
+      </div>
     </div>
+    
+    // <div className="App">
+    //   <Description />
+    //   <Container style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: "10px", width: "100%" }}>
+    //     <img src={luckyCat} width={"50%"} style={{ maxWidth: "150px" }} alt="Lucky Cat" /> */}
+    //    <button className="button-52" style={{ marginTop: "10px" }} onClick={() => setContinueApp(true)}>Try It Out!!</button>
+       
+    //   </Container>
+    //   <Footer />
+    // </div>
   );
 };
 
