@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from gtts import gTTS
 import shutil
 import os
@@ -6,6 +7,7 @@ from ultralytics import YOLO
 from collections import defaultdict
 
 app = Flask(__name__)
+CORS(app)
 
 # Define the YOLO model
 model = YOLO("bestv11.pt")
@@ -72,8 +74,8 @@ def get_image():
                             bbox_values = list(map(float, data[2:]))
                             detection_details.append(f"Detected: {class_name} - Confidence: {confidence}, Bounding Box: {bbox_values}")
     
-    total_value_text = f"{total_value} บาท"
-    total_obj = gTTS(text=total_value_text, lang='th', slow=False)
+    total_value_text = f"{total_value} baht"
+    total_obj = gTTS(text=total_value_text, lang='en', slow=False)
     total_obj.save("voice/total.mp3")
     
     # os.system("voice/total.mp3")

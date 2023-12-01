@@ -1,4 +1,5 @@
 # Base ----------------------------------------
 ultralytics
-flask
+Flask
 ggts
+flask-cors
