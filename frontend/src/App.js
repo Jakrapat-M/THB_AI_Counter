@@ -1,30 +1,19 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
-import { IconButton, Stack } from "@mui/material";
+import { IconButton, Stack, Container } from "@mui/material";
 import WebcamCapture from "./components/WebcamCapture";
 import CapturedImage from "./components/CapturedImage";
-// import Loading from "./components/loading";
-// import Footer from "./components/footer";
-// import Description from "./components/description";
-// import luckyCat from "../src/assets/luckyCat.png";
+import Footer from "./components/footer";
+import Description from "./components/description";
+import luckyCat from "../src/assets/luckyCat.png";
 import baht from "../src/assets/baht.png";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-// import { blue } from "@mui/material/colors";
-// import { Height } from "@mui/icons-material";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const CameraApp = () => {
   const [capturedImage, setCapturedImage] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isDescription, setIsDescription] = useState(false);
   const [continueApp, setContinueApp] = useState(false); // Add continueApp state
-
-  // Loading Screen Timer logic
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 4500); // Change this to control the duration of the loading screen
-
-    return () => clearTimeout(timer); // Clean up the timer
-  }, []);
 
   const handleCapture = async (imageSrc) => {
     setCapturedImage(imageSrc);
@@ -60,7 +49,6 @@ const CameraApp = () => {
         // Handle the response from the server (e.g., display results)
         const result = await response.json();
         console.log("Detection Result:", result);
-        setContinueApp(true); // Set continueApp to true after successful detection
       } else {
         // Handle the error response
         console.error("Error performing detection:", response.statusText);
@@ -71,8 +59,40 @@ const CameraApp = () => {
   };
 
   //Load screen
-  if (isLoading) {
-    // return <Loading />;
+  if (isDescription) {
+    return (
+      <div>
+        <Description />
+        <Container
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: "10px",
+            width: "100%",
+          }}
+        >
+          <img
+            src={luckyCat}
+            width={"50%"}
+            style={{ maxWidth: "150px" }}
+            alt="Lucky Cat"
+          />
+          <button
+            className="button-52"
+            style={{ marginTop: "10px" }}
+            onClick={() => {
+              setContinueApp(true);
+              setIsDescription(false);
+            }}
+          >
+            Try It Out!!
+          </button>
+        </Container>
+        <Footer />
+      </div>
+    );
   }
 
   if (continueApp) {
@@ -112,7 +132,7 @@ const CameraApp = () => {
   }
 
   return (
-    <div className="container flex justify-center h-screen text-white">
+    <div className=" flex justify-center h-screen text-white">
       <div className="flex flex-col justify-center align-middle">
         <div className="d-flex justify-center align-middle">
           <Stack spacing={2}>
@@ -127,17 +147,12 @@ const CameraApp = () => {
           </Stack>
         </div>
       </div>
+      <InfoOutlinedIcon
+        className="fixed top-4 right-4"
+        fontSize="large"
+        onClick={() => setIsDescription(true)}
+      />
     </div>
-
-    // <div className="App">
-    //   <Description />
-    //   <Container style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: "10px", width: "100%" }}>
-    //     <img src={luckyCat} width={"50%"} style={{ maxWidth: "150px" }} alt="Lucky Cat" /> */}
-    //    <button className="button-52" style={{ marginTop: "10px" }} onClick={() => setContinueApp(true)}>Try It Out!!</button>
-
-    //   </Container>
-    //   <Footer />
-    // </div>
   );
 };
 

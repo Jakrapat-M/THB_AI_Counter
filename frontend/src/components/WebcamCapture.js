@@ -29,21 +29,21 @@ const WebcamCapture = ({ onCapture }) => {
   }, [onCapture]);
 
   return (
-    <div style={{ display: "flex", flexDirection: 'column', height: "100vh" }}>
+    <div className="flex flex-col sm:flex-row">
       <Webcam
         videoConstraints={facingMode}
         audio={false}
         ref={webcamRef}
         screenshotFormat="image/jpeg"
         className="webcam"
-        style={{ zIndex: 1 }}
+        style={{ zIndex: 1, margin: window.innerWidth < 900 ? "0" : "0 auto" }}
       />
       <Button className="webcam-button" onClick={capture}>
         <div class="photo-button">
           <div class="circle">
             <FontAwesomeIcon className="icon" icon={faCamera} />
           </div>
-          <div class="ring"></div>
+          <div class="ring"/>
         </div>
       </Button>
     </div>
