@@ -13,82 +13,70 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 const CameraApp = () => {
   const [capturedImage, setCapturedImage] = useState(null);
   const [isDescription, setIsDescription] = useState(false);
-  const [continueApp, setContinueApp] = useState(false); // Add continueApp state
+  const [continueApp, setContinueApp] = useState(false);
+  const [speechSynthesis, setSpeechSynthesis] = useState(null);
+
+  useEffect(() => {
+    // Initialize speechSynthesis when the component mounts
+    setSpeechSynthesis(window.speechSynthesis);
+  }, []);
+
+  const speakTotalValue = (totalValue) => {
+    if (speechSynthesis && totalValue) {
+      const utterance = new SpeechSynthesisUtterance(
+        `Total value is ${totalValue}`
+      );
+      speechSynthesis.speak(utterance);
+    }
+  };
 
   const handleCapture = async (imageSrc) => {
     setCapturedImage(imageSrc);
-    // Add your image processing logic here
-    // Save the captured image to a file
     const blob = await fetch(imageSrc).then((res) => res.blob());
     const imageFile = new File([blob], "captured_image.jpg", {
       type: "image/jpg",
     });
 
-    // Pass the captured image file to the YOLO detection function
     performDetection(imageFile);
 
-    // Set imageSrc to null after capturing the image
     setTimeout(() => {
       setCapturedImage(null);
-    }, 5000); // Change the duration as needed
+    }, 5000);
   };
 
   const performDetection = async (imageFile) => {
-    // Create a FormData object to send the file as a multipart/form-data
     const formData = new FormData();
     formData.append("image", imageFile);
 
     try {
-      // Make a POST request to the Flask server
-      // const response = await fetch("http://server1.ryyyyyy.com:6702/get_image", {
-      const response = await fetch("http://127.0.0.1:5000/get_image", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (response.ok) {
-        // Handle the response from the server (e.g., display results)
-        const result = await response.json();
-        console.log("Detection Result:", result);
-
-        try {
-          const response = await fetch("http://127.0.0.1:5000/get_sound", {
-            method: "GET",
-          });
-
-          if (!response.ok) {
-            console.log("Failed to fetch sound");
-            throw new Error("Failed to fetch sound");
-          }
-
-          const audioUrl = await response.url;
-
-          // Create an <audio> element
-          const audioElement = document.createElement("audio");
-
-          // Set the source of the audio element to the fetched URL
-          audioElement.src = audioUrl;
-
-          // Append the audio element to the document body or any other container
-          document.body.appendChild(audioElement);
-
-          // Play the audio
-          audioElement.play();
-        } catch (error) {
-          console.error("Error fetching sound:", error.message);
+      const imageResponse = await fetch(
+        "http://server1.ryyyyyy.com:6702/get_image",
+        {
+          method: "POST",
+          body: formData,
         }
+      );
 
-        setContinueApp(true); // Set continueApp to true after successful detection
+      if (imageResponse.ok) {
+        const imageResult = await imageResponse.json();
+        console.log("Image Detection Result:", imageResult);
+        console.log(imageResult.total_value);
+
+        // Speak the total value
+        speakTotalValue(imageResult.total_value);
+
+        setContinueApp(true);
       } else {
-        // Handle the error response
-        console.error("Error performing detection:", response.statusText);
+        console.error(
+          "Error performing image detection:",
+          imageResponse.statusText
+        );
       }
     } catch (error) {
       console.error("Error:", error.message);
     }
   };
 
-  //Load screen
   if (isDescription) {
     return (
       <div>
@@ -126,7 +114,6 @@ const CameraApp = () => {
   }
 
   if (continueApp) {
-    // Render the app if continueApp is true
     return (
       <div>
         <IconButton
