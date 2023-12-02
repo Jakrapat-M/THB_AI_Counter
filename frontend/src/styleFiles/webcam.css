@@ -19,6 +19,11 @@ video {
   /*mirror the video*/
   transform: scaleX(-1);
 }
+@media (max-width: 768px) {
+  video {
+    transform: scale(1);
+  }
+}
 
 .webcam-button {
   position: absolute;
