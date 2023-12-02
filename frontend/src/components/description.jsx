@@ -17,12 +17,14 @@ const Description = () => {
       marginTop={"20px"}
     >
       <img
+        alt="cloud"
         position="relative"
         src={cloud}
         className="Cloud"
         style={{ zIndex: 1, alignItems: "center", objectPosition: "center" }}
       />
       <img
+        alt="baht"
         position="relative"
         src={baht}
         width={"80px"}
