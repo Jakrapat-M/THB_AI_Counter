@@ -40,6 +40,7 @@ const CameraApp = () => {
 
     try {
       // Make a POST request to the Flask server
+      // const response = await fetch("http://server1.ryyyyyy.com:6702/get_image", {
       const response = await fetch("http://127.0.0.1:5000/get_image", {
         method: "POST",
         body: formData,
@@ -49,6 +50,35 @@ const CameraApp = () => {
         // Handle the response from the server (e.g., display results)
         const result = await response.json();
         console.log("Detection Result:", result);
+
+        try {
+          const response = await fetch("http://127.0.0.1:5000/get_sound", {
+            method: "GET",
+          });
+
+          if (!response.ok) {
+            console.log("Failed to fetch sound");
+            throw new Error("Failed to fetch sound");
+          }
+
+          const audioUrl = await response.url;
+
+          // Create an <audio> element
+          const audioElement = document.createElement("audio");
+
+          // Set the source of the audio element to the fetched URL
+          audioElement.src = audioUrl;
+
+          // Append the audio element to the document body or any other container
+          document.body.appendChild(audioElement);
+
+          // Play the audio
+          audioElement.play();
+        } catch (error) {
+          console.error("Error fetching sound:", error.message);
+        }
+
+        setContinueApp(true); // Set continueApp to true after successful detection
       } else {
         // Handle the error response
         console.error("Error performing detection:", response.statusText);

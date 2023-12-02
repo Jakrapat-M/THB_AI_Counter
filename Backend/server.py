@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 from gtts import gTTS
 import shutil
@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Define the YOLO model
-model = YOLO("bestv11.pt")
+model = YOLO("bestv12.pt")
 
 #c Mapped class
 class_info = {
@@ -26,18 +26,22 @@ class_info = {
 }
 
 # Route to handle image processing
+@app.route("/get_sound", methods=["GET"])
+def get_sound():
+    # Replace 'path/to/your/sound/file.mp3' with the actual path to your .mp3 file
+    sound_file_path = 'voice/total.mp3'
+    # Specify the mimetype for .mp3 files
+    return send_file(sound_file_path, mimetype='audio/mpeg', as_attachment=True)
+
 @app.route("/get_image", methods=["POST"])
 def get_image():
     if "image" not in request.files:
-        print("hihi")
         return jsonify({"error": "No image provided"}), 400
         
 
     image = request.files["image"]
 
     # Save the uploaded image
-    print("heioosfd")
-    print(image)
     image.save('img/image.jpg')
     
     # Delete existing predicted
@@ -79,9 +83,12 @@ def get_image():
     total_obj.save("voice/total.mp3")
     
     # os.system("voice/total.mp3")
-    os.system("afplay voice/total.mp3")
+    # os.system("afplay voice/total.mp3")
 
-    return ''
+    return jsonify({
+        "total_value": total_value_text,
+        "detection_details": detection_details
+    })
 
 if __name__ == "__main__":
     app.run(debug=True)
