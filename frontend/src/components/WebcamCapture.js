@@ -7,22 +7,22 @@ import "../styleFiles/webcam.css"
 
 const WebcamCapture = ({ onCapture }) => {
   const webcamRef = useRef(null);
-  // const [facingMode, setFacingMode] = useState("user");
-  const facingMode = {facingMode: {exact: "environment"}};
+  const [facingMode, setFacingMode] = useState("user");
+  // const facingMode = {facingMode: {exact: "environment"}};
 
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     const newFacingMode = window.innerWidth < 768 ? {facingMode: {exact: "environment"}} : "user";
-  //     setFacingMode(newFacingMode);
-  //   };
+  useEffect(() => {
+    const handleResize = () => {
+      const newFacingMode = window.innerWidth < 900 ? {facingMode: {exact: "environment"}} : {facingMode: "user"};
+      setFacingMode(newFacingMode);
+    };
 
-  //   window.addEventListener("resize", handleResize);
-  //   handleResize(); // Initial check
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Initial check
 
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const capture = useCallback(async () => {
     const imageSrc = webcamRef.current.getScreenshot();
