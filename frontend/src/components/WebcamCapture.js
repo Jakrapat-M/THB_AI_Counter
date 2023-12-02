@@ -8,11 +8,11 @@ import "../styleFiles/webcam.css"
 const WebcamCapture = ({ onCapture }) => {
   const webcamRef = useRef(null);
   // const [facingMode, setFacingMode] = useState("user");
-  const facingMode = {exact: "environment"};
+  const facingMode = {facingMode: {exact: "environment"}};
 
   // useEffect(() => {
   //   const handleResize = () => {
-  //     const newFacingMode = window.innerWidth < 768 ? { exact: "environment" } : "user";
+  //     const newFacingMode = window.innerWidth < 768 ? {facingMode: {exact: "environment"}} : "user";
   //     setFacingMode(newFacingMode);
   //   };
 
