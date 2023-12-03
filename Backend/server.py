@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Define the YOLO model
-model = YOLO("bestv12.pt")
+model = YOLO("bestv13.pt")
 
 #c Mapped class
 class_info = {
@@ -75,15 +75,14 @@ def get_image():
                     if len(data) >= 1:
                         class_id = int(data[0])
                         detected_classes[class_id] += 1 
-                        class_info_entry = class_info.get(class_id)
-                        if class_info_entry:
-                            total_value += class_info_entry['value'] * detected_classes[class_id]
-                            class_name = class_info_entry['name']
-                            confidence = float(data[1])
-                            bbox_values = list(map(float, data[2:]))
-                            detection_details.append(f"Detected: {class_name} - Confidence: {confidence}, Bounding Box: {bbox_values}")
     
+    for class_id, count in detected_classes.items():
+        class_info_entry = class_info.get(class_id)
+        if class_info_entry:
+            total_value += class_info_entry['value'] * count
+         
     total_value_text = f"{total_value} baht"
+    print(total_value_text)
     total_obj = gTTS(text=total_value_text, lang='en', slow=False)
     total_obj.save("voice/total.mp3")
 
