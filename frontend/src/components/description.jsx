@@ -23,7 +23,7 @@ const Description = () => {
         className="Cloud"
         style={{ zIndex: 1, alignItems: "center", objectPosition: "center" }}
       />
-      <img
+      {/* <img
         alt="baht"
         position="relative"
         src={baht}
@@ -36,13 +36,12 @@ const Description = () => {
           paddingBottom: "30px",
           transform: "translate(-50%, -50%)",
         }}
-      />
+      /> */}
       <span className="Description">
-        &nbsp;&nbsp;&nbsp;SNAP!📷 Introducing{" "}
         <strong style={{ color: "white", fontStyle: "italic", padding: 0, margin: 0 }}>
-          CherryTHB
+          THBCurrencyCounter
         </strong>
-        &nbsp;, your currency AI detector that not only captures the bills&coins
+        &nbsp;, your currency AI detector that not only captures bills and coins
         but calculates it too! Effortlessly identify with a snap!
       </span>
     </Box>

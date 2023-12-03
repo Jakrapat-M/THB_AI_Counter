@@ -6,9 +6,9 @@ import CapturedImage from "./components/CapturedImage";
 import Footer from "./components/footer";
 import Description from "./components/description";
 import luckyCat from "../src/assets/luckyCat.png";
-import baht from "../src/assets/baht.png";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
 const CameraApp = () => {
   const [capturedImage, setCapturedImage] = useState(null);
@@ -153,14 +153,14 @@ const CameraApp = () => {
       <div className="flex flex-col justify-center align-middle">
         <div className="d-flex justify-center align-middle">
           <Stack spacing={2}>
-            <img src={baht} alt="logo" className="w-40 h-40" />
-            <h3 className="text-lg font-semibold">THBCurrencyCouter</h3>
+          
             <button
-              className="text-lg px-5 py-2 rounded-full transition ease-in-out delay-150 bg-indigo-500  hover:-translate-y-1 hover:scale-110 hover:bg-blue-500 duration-300"
+              className="text-3xl px-5 py-2 w-64 h-64 rounded-full transition ease-in-out delay-150 bg-indigo-500  hover:-translate-y-1 hover:scale-110 hover:bg-indigo-700 duration-300"
               onClick={() => setContinueApp(true)}
             >
-              SNAP
+              <PhotoCameraIcon style={{ fontSize: 90 }} />
             </button>
+          
           </Stack>
         </div>
       </div>

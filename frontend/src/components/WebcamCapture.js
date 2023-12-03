@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import "../styleFiles/webcam.css"
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
 const WebcamCapture = ({ onCapture }) => {
   const webcamRef = useRef(null);
@@ -37,16 +38,21 @@ const WebcamCapture = ({ onCapture }) => {
         ref={webcamRef}
         screenshotFormat="image/jpeg"
         className="webcam"
-        style={{ zIndex: 1, margin: window.innerWidth < 900 ? "0" : "0 auto" }}
+        style={{ margin: window.innerWidth < 900 ? "0" : "0 auto" }}
       />
-      <Button className="webcam-button" style={{zIndex:2}} onClick={capture}>
+      <div className="fixed bottom-5 left-0 right-0 flex justify-center">
+        <button className="w-16 h-16 rounded-full bg-indigo-500 z-0" onClick={capture}> 
+        <PhotoCamera style={{fontSize:25 , color:"white"}}></PhotoCamera>
+        </button>
+      </div>
+      {/* <Button className="webcam-button" style={{zIndex:2}} onClick={capture}>
         <div class="photo-button">
           <div class="circle">
             <FontAwesomeIcon className="icon" icon={faCamera} />
           </div>
           <div class="ring"/>
         </div>
-      </Button>
+      </Button> */}
     </div>
   );
 };
