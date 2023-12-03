@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify , send_file
 from flask_cors import CORS
 from gtts import gTTS
 import shutil
@@ -25,6 +25,11 @@ class_info = {
     8: {'name': '5_baht', 'value': 5}
 }
 
+
+@app.route("/",methods=["GET"])
+def index():
+    return "backend running✨✨✨"
+
 # Route to handle image processing
 @app.route("/get_sound", methods=["GET"])
 def get_sound():
@@ -46,8 +51,8 @@ def get_image():
     
     # Delete existing predicted
     if os.path.exists('runs/detect/predict'):
-        shutil.rmtree('runs/detect/predict')
-        
+        shutil.rmtree('runs/detect/predict') 
+
     # Perform object detection using YOLO
     Img = 'img/image.jpg'
     result = model.predict(Img, conf=0.5, save_txt=True, save=True, save_dir='result')
@@ -81,7 +86,10 @@ def get_image():
     total_value_text = f"{total_value} baht"
     total_obj = gTTS(text=total_value_text, lang='en', slow=False)
     total_obj.save("voice/total.mp3")
-    
+
+    sound_file_path = 'voice/total.mp3'
+    # Specify the mimetype for .mp3 files
+    #return send_file(sound_file_path, mimetype='audio/mpeg', as_attachment=True)
     # os.system("voice/total.mp3")
     # os.system("afplay voice/total.mp3")
 
@@ -91,4 +99,5 @@ def get_image():
     })
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0',port=6702,debug=False)
+# 0.0.0.0 all ip
