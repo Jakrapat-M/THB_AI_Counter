@@ -157,7 +157,7 @@ const CameraApp = () => {
             
               <p className="text-center"><PhotoCameraIcon style={{ fontSize: 90 }} /></p>
           
-            <h3 className="text-lg font-semibold text-center">THBCurrencyCouter</h3>
+            <h3 className="text-lg font-semibold text-center">THBCurrencyCounter</h3>
             <p className="text-center">Click anywhere to process</p>
           </Stack>
         </div>
