@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "@mui/material";
 import cloud from "../assets/PinkCloudShape.png";
-import baht from "../assets/baht.png";
+// import baht from "../assets/baht.png";
 import "../styleFiles/description.css";
 
 const Description = () => {

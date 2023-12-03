@@ -149,18 +149,16 @@ const CameraApp = () => {
   }
 
   return (
-    <div className=" flex justify-center h-screen text-white">
+    <div className=" flex justify-center h-screen text-white " onClick={() => setContinueApp(true)}>
       <div className="flex flex-col justify-center align-middle">
         <div className="d-flex justify-center align-middle">
           <Stack spacing={2}>
           
-            <button
-              className="text-3xl px-5 py-2 w-64 h-64 rounded-full transition ease-in-out delay-150 bg-indigo-500  hover:-translate-y-1 hover:scale-110 hover:bg-indigo-700 duration-300"
-              onClick={() => setContinueApp(true)}
-            >
-              <PhotoCameraIcon style={{ fontSize: 90 }} />
-            </button>
+            
+              <p className="text-center"><PhotoCameraIcon style={{ fontSize: 90 }} /></p>
           
+            <h3 className="text-lg font-semibold text-center">THBCurrencyCouter</h3>
+            <p className="text-center">Click anywhere to process</p>
           </Stack>
         </div>
       </div>
