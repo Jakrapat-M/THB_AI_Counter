@@ -10,6 +10,12 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
+// Require dotenv and configure it
+require('dotenv').config();
+
+// Access the environment variables
+const baseUrl = process.env.REACT_APP_BASE_URL;
+
 const CameraApp = () => {
   const [capturedImage, setCapturedImage] = useState(null);
   const [isDescription, setIsDescription] = useState(false);
@@ -50,7 +56,7 @@ const CameraApp = () => {
 
     try {
       const imageResponse = await fetch(
-        "http://server1.ryyyyyy.com:6702/get_image",
+        `${baseUrl}get_image`,
         {
           method: "POST",
           body: formData,
