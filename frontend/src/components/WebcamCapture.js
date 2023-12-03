@@ -39,7 +39,7 @@ const WebcamCapture = ({ onCapture }) => {
         className="webcam"
         style={{ zIndex: 1, margin: window.innerWidth < 900 ? "0" : "0 auto" }}
       />
-      <Button className="webcam-button" onClick={capture}>
+      <Button className="webcam-button" style={{zIndex:2}} onClick={capture}>
         <div class="photo-button">
           <div class="circle">
             <FontAwesomeIcon className="icon" icon={faCamera} />
